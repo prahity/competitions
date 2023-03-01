@@ -3,10 +3,9 @@ import java.io.*;
 
 public class Main {
 
-    static int BessieNumMoves, ElsieNumMoves;
+    static int BessieNumMoves, ElsieNumMoves, count;
     static char Direction;
     static ArrayList<Integer> BessieMoves, ElsieMoves;
-
     public static void getInput() throws IOException {
         File inputFile = new File("greetings.in");
         Scanner sc = new Scanner(inputFile);
@@ -48,12 +47,12 @@ public class Main {
             return i;
         }
     }
-    public static int runSimulation() {
-        int BessiePos = 0, ElsiePos = 0, count = 0;
+    public static void runSimulation() {
+        int BessiePos = 0, ElsiePos = 0;
         boolean together = true;
         int maxSteps = getMax(BessieMoves.size(), ElsieMoves.size());
 
-
+        count = 0;
         for (int i=0; i<maxSteps; i++) {
             if (i < BessieMoves.size()) {
                 BessiePos += BessieMoves.get(i);
@@ -72,14 +71,17 @@ public class Main {
                 }
             }
         }
-        return count;
     }
-    public static void main(String[] args) throws IOException {
-        getInput();
-        int count = runSimulation();
+
+    public static void putOutput() throws IOException {
         FileWriter fileWriter = new FileWriter("greetings.out");
         PrintWriter printWriter = new PrintWriter(fileWriter);
         printWriter.printf("%d\n", count);
         printWriter.close();
+    }
+    public static void main(String[] args) throws IOException {
+        getInput();
+        runSimulation();
+        putOutput();
     }
 }
